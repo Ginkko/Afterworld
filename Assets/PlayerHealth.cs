@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip deathClip;                                 // The audio clip to play when the player dies.
     public float damageFlashSpeed;                               // The speed the damageImage will fade at.
 	public float deathFadeSpeed;
+	public float totalFadeLength;
     public Color flashColor = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
 	public Color deathColor;
 	public float timeBetweenDamageFeedback = 2f;
@@ -20,11 +21,11 @@ public class PlayerHealth : MonoBehaviour
 	SpawnController spawnController;
 //    PlayerMovement playerMovement;                              // Reference to the player's movement.
 //    PlayerShooting playerShooting;                              // Reference to the PlayerShooting script.
-	bool isDead = false;                                                // Whether the player is dead.
-	bool damaged = false;                                               // True when the player gets damaged.
+	public bool isDead = false;                                                // Whether the player is dead.
+	public bool damaged = false;                                               // True when the player gets damaged.
 	float timer;
 	string spawnPoint;
-	bool respawning = false;
+	public bool respawning = true;
 
     void Awake ()
     {
@@ -36,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
 //        playerShooting = GetComponentInChildren <PlayerShooting> ();
 
         // Set the initial health of the player.
+		damageImage.color = Color.black;
         currentHealth = maxHealth;
 		spawnPoint = "PlayerSpawn0";
 		spawnController.spawn(spawnPoint);
@@ -44,28 +46,44 @@ public class PlayerHealth : MonoBehaviour
 
     void Update ()
     {
+		timer += Time.deltaTime;
+
 		if (respawning)
 		{
-			damageImage.color = Color.Lerp (deathColor, Color.clear, deathFadeSpeed * Time.deltaTime);
+			damageImage.color = Color.Lerp (Color.black, Color.clear,  timer / totalFadeLength );
 //			Debug.Log(damageImage.color);
-			timer += Time.deltaTime;
-			if (timer > deathFadeSpeed * 2)
+			if (timer > totalFadeLength)
 			{
 				Debug.Log ("Respawning finished");
+
 				respawning = false;
 				timer = 0;
 			}
 			
 		}
 		
-		else {
+		else if (isDead)
+		{
 
-			if (!isDead)
+			Debug.Log ("Dying");
+			Color damageImageSnapshot = damageImage.color;
+			damageImage.color = Color.Lerp (damageImageSnapshot, deathColor, timer / totalFadeLength);
+			Debug.Log ("Death fade timer: " + timer);
+			if (timer > totalFadeLength)
 			{
+				respawning = true;
+				isDead = false;
+				currentHealth = maxHealth;
+				damaged = false;
+				timer = 0;
+				spawnController.spawn(spawnPoint);
+			
+			}
+		}
 
-
-				timer += Time.deltaTime;
-		//		Debug.Log ("Timer:" + timer);
+		else
+		{		
+//				Debug.Log ("Timer:" + timer);
 
 				if(timer > timeBetweenDamageFeedback)
 				{
@@ -83,27 +101,11 @@ public class PlayerHealth : MonoBehaviour
 
 				}
 				damageImage.color = Color.Lerp (damageImage.color, Color.clear, damageFlashSpeed * Time.deltaTime);
-			}
-			else
-			{
-				damageImage.color = Color.Lerp (damageImage.color, deathColor, deathFadeSpeed * Time.deltaTime);
-				timer = timer += Time.deltaTime;
-				Debug.Log ("Death fade timer: " + timer);
-				if (timer > deathFadeSpeed * 2)
-				{
-					damageImage.color = Color.black;
-					respawning = true;
-					isDead = false;
-					timer = 0;
-					spawnController.spawn(spawnPoint);
-				}
-			}
-
-
 		}
 
-
 	}
+
+
 
     public void TakeDamage (float amount)
     {
