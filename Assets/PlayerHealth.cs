@@ -9,8 +9,10 @@ public class PlayerHealth : MonoBehaviour
     public Slider healthSlider;                                 // Reference to the UI's health bar.
     public Image damageImage;                                   // Reference to an image to flash on the screen on being hurt.
     public AudioClip deathClip;                                 // The audio clip to play when the player dies.
-    public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
-    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
+    public float damageFlashSpeed;                               // The speed the damageImage will fade at.
+	public float deathFadeSpeed;
+    public Color flashColor = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
+	public Color deathColor;
 	public float timeBetweenDamageFeedback = 2f;
 
     Animator anim;                                              // Reference to the Animator component.
@@ -37,27 +39,34 @@ public class PlayerHealth : MonoBehaviour
 
     void Update ()
     {
-		timer += Time.deltaTime;
-//		Debug.Log ("Timer:" + timer);
-
-		if(timer > timeBetweenDamageFeedback)
+		if (!isDead)
 		{
+			timer += Time.deltaTime;
+	//		Debug.Log ("Timer:" + timer);
 
-			timer = 0f;
-			// If the player has just been damaged...
-	        
-			if(damaged)
-	        {
-	            // ... set the colour of the damageImage to the flash colour.
-	            damageImage.color = flashColour;
-	        }
-	        // Otherwise...
-	        damaged = false;
+			if(timer > timeBetweenDamageFeedback)
+			{
 
+				timer = 0f;
+				// If the player has just been damaged...
+		        
+				if(damaged)
+		        {
+		            // ... set the colour of the damageImage to the flash colour.
+		            damageImage.color = flashColor;
+		        }
+		        // Otherwise...
+		        damaged = false;
+
+			}
+			damageImage.color = Color.Lerp (damageImage.color, Color.clear, damageFlashSpeed * Time.deltaTime);
 		}
-		damageImage.color = Color.Lerp (damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
-	}
+		else
+		{
+			damageImage.color = Color.Lerp (damageImage.color, deathColor, deathFadeSpeed * Time.deltaTime);
+		}
 
+	}
 
     public void TakeDamage (float amount)
     {
@@ -96,6 +105,7 @@ public class PlayerHealth : MonoBehaviour
     {
         // Set the death flag so this function won't be called again.
         isDead = true;
+		currentHealth = 0;
 
         // Turn off any remaining shooting effects.
 //        playerShooting.DisableEffects ();
