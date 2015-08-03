@@ -15,6 +15,10 @@ public class PlayerInventory : MonoBehaviour {
 	
 	}
 
+	public bool idolStatus () {
+		return isCarryingIdol;
+	}
+
 	public void idolCarryToggle () {
 		isCarryingIdol = !isCarryingIdol;
 		Debug.Log ("Holding Idol: " + isCarryingIdol);
