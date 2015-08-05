@@ -23,7 +23,7 @@ public class IdolInteract : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 
 	{
-		levelSpawn.spawn();
+		levelSpawn.spawn(0);
 		Destroy (gameObject);
 		inventory.idolCarryToggle();
 	}

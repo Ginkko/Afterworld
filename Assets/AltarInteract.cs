@@ -7,7 +7,7 @@ public class AltarInteract : MonoBehaviour {
 	PlayerInventory inventory;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		player = GameObject.FindGameObjectWithTag("Player");
 		inventory = player.GetComponent<PlayerInventory> ();
 	}
