@@ -530,6 +530,111 @@ ModelImporter:
     4300204: ID617
     4300206: ID621
     4300208: group_0
+    6400000: //RootNode
+    6400002: group_0
+    6400004: ID103
+    6400006: ID109
+    6400008: ID115
+    6400010: ID121
+    6400012: ID127
+    6400014: ID133
+    6400016: ID139
+    6400018: ID145
+    6400020: ID151
+    6400022: ID157
+    6400024: ID163
+    6400026: ID169
+    6400028: ID175
+    6400030: ID181
+    6400032: ID187
+    6400034: ID19
+    6400036: ID193
+    6400038: ID199
+    6400040: ID205
+    6400042: ID211
+    6400044: ID217
+    6400046: ID223
+    6400048: ID229
+    6400050: ID235
+    6400052: ID241
+    6400054: ID247
+    6400056: ID25
+    6400058: ID253
+    6400060: ID259
+    6400062: ID265
+    6400064: ID271
+    6400066: ID277
+    6400068: ID283
+    6400070: ID289
+    6400072: ID295
+    6400074: ID301
+    6400076: ID307
+    6400078: ID31
+    6400080: ID313
+    6400082: ID319
+    6400084: ID325
+    6400086: ID331
+    6400088: ID337
+    6400090: ID343
+    6400092: ID349
+    6400094: ID355
+    6400096: ID361
+    6400098: ID367
+    6400100: ID37
+    6400102: ID373
+    6400104: ID379
+    6400106: ID385
+    6400108: ID391
+    6400110: ID397
+    6400112: ID403
+    6400114: ID409
+    6400116: ID415
+    6400118: ID421
+    6400120: ID427
+    6400122: ID43
+    6400124: ID433
+    6400126: ID439
+    6400128: ID445
+    6400130: ID451
+    6400132: ID457
+    6400134: ID463
+    6400136: ID469
+    6400138: ID475
+    6400140: ID481
+    6400142: ID487
+    6400144: ID49
+    6400146: ID493
+    6400148: ID499
+    6400150: ID505
+    6400152: ID511
+    6400154: ID517
+    6400156: ID523
+    6400158: ID529
+    6400160: ID535
+    6400162: ID541
+    6400164: ID547
+    6400166: ID55
+    6400168: ID553
+    6400170: ID559
+    6400172: ID565
+    6400174: ID571
+    6400176: ID577
+    6400178: ID583
+    6400180: ID589
+    6400182: ID595
+    6400184: ID601
+    6400186: ID605
+    6400188: ID609
+    6400190: ID61
+    6400192: ID613
+    6400194: ID617
+    6400196: ID621
+    6400198: ID67
+    6400200: ID73
+    6400202: ID79
+    6400204: ID85
+    6400206: ID91
+    6400208: ID97
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -540,6 +645,10 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
@@ -550,9 +659,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: .0399999991
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
