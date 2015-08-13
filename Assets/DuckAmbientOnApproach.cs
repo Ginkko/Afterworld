@@ -14,7 +14,7 @@ public class DuckAmbientOnApproach : MonoBehaviour {
 	void Update () {
 		var player = GameObject.FindWithTag("GameController");
 		var distance = Vector3.Distance(transform.position, player.transform.position);
-		Debug.Log (distance);
+//		Debug.Log (distance);
 		if (distance < 40) {
 			float ambientVol = -(80 - distance * 2) - 12;
 			musicController.SetFloat("Ambient", ambientVol);
