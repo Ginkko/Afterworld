@@ -18,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
 	public float totalFadeLength;
     public Color flashColor = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
 	public Color deathColor;
+	public Color victoryColor;
 	public float timeBetweenDamageFeedback = 2f;
 
     Animator anim;                                              // Reference to the Animator component.
@@ -30,6 +31,7 @@ public class PlayerHealth : MonoBehaviour
 	float timer;
 	string spawnPoint;
 	public bool respawning = true;
+	public bool isVictorious = false;
 
 	void Start ()
 	{
@@ -58,7 +60,21 @@ public class PlayerHealth : MonoBehaviour
     {
 		timer += Time.deltaTime;
 
-		if (respawning)
+		if (isVictorious)
+		{
+			Debug.Log ("V I C T O R Y");
+			Color damageImageSnapshot = damageImage.color;
+			damageImage.color = Color.Lerp (damageImageSnapshot, victoryColor, timer / totalFadeLength );
+			if (timer > totalFadeLength)
+			{
+				damageImage.color = victoryColor;
+				Debug.Log (" WINNING COMPLETED ");
+			}
+
+		}
+
+
+		else if (respawning)
 		{
 			damageImage.color = Color.Lerp (Color.black, Color.clear,  timer / totalFadeLength );
 //			Debug.Log(damageImage.color);
@@ -149,6 +165,11 @@ public class PlayerHealth : MonoBehaviour
 			Death ();
 		}
    	 }
+
+	public void Victory ()
+	{
+		isVictorious = true;
+	}
 
 
     void Death ()

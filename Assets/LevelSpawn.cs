@@ -15,10 +15,12 @@ public class LevelSpawn : MonoBehaviour {
 	GameObject oldRayCaster;
 	Light oldDirLight;
 	Light newDirLight;
+	PlayerHealth playerHealth;
 
 	void Start() 
 	{
 		audio = GetComponent<AudioSource>();
+		playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 	}
 
 	// Use this for initialization
@@ -42,6 +44,12 @@ public class LevelSpawn : MonoBehaviour {
 
 
 		}
+
+		else if (levelId == 3)
+		{
+			playerHealth.Victory();	
+		}
+
 
 		else
 		
