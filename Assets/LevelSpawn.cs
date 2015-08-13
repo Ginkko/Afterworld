@@ -2,23 +2,61 @@
 using System.Collections;
 
 public class LevelSpawn : MonoBehaviour {
-	public GameObject levelGroup;
+	public GameObject Altar;
+	public GameObject levelGroup1;
+	public GameObject levelGroup2;
+	int levelId;
+	bool fadingOut;
 	bool fadingIn;
 	bool spawning;
 	GameObject oldRayCaster;
-	GameObject oldLight;
-	public Light oldDirLight;
-	public Light newDirLight;
+	Light oldDirLight;
+	Light newDirLight;
 	// Use this for initialization
-	void Start () {
-		oldRayCaster = GameObject.Find("raycaster");
-		oldLight = GameObject.Find("SunLevel0");
+	void Awake () {
+
 	}
 
-	public void spawn ()
+	public void spawn (int level)
 	{
-		spawning = true;
-		Debug.Log ("Spawning: " + spawning);
+		levelId = level;
+		Debug.Log ("Spawning level" + levelId);
+		if (levelId == 0)
+		{
+
+			var oldRayString = string.Format("raycaster{0}", levelId);
+			var oldLightString = string.Format("SunLevel{0}", levelId);
+
+			oldRayCaster = GameObject.Find (oldRayString);
+			oldDirLight = GameObject.Find (oldLightString).GetComponent<Light> ();
+			newDirLight = oldDirLight;
+			spawning = true;
+			fadingOut = true;
+		}
+
+		else
+		
+		{
+			var oldRayString = string.Format("raycaster{0}", levelId - 1);
+			var oldLightString = string.Format("SunLevel{0}", levelId - 1);
+			var newLightString = string.Format ("SunLevel{0}", levelId);
+
+			oldRayCaster = GameObject.Find (oldRayString);
+			oldDirLight = GameObject.Find (oldLightString).GetComponent<Light> ();
+			newDirLight = GameObject.Find (newLightString).GetComponent<Light> ();
+
+			Debug.Log ("Old Raycaster: " + oldRayCaster.name);
+			Debug.Log ("Old DirLight: " + oldDirLight.name);
+			Debug.Log ("Old newDirLight: " + newDirLight.name);
+
+//			oldRayCaster = GameObject.Find ("raycaster{levelId - 1}");
+//			Debug.Log (oldRayCaster.name);
+//			oldDirLight = GameObject.Find ("SunLevel{levelId - 1}").GetComponent<Light> ();
+
+			spawning = true;
+			fadingOut = true;
+		}
+
 	}
 
 	// Update is called once per frame
@@ -26,26 +64,42 @@ public class LevelSpawn : MonoBehaviour {
 	{
 		if (spawning)
 		{
-
-
-			if (oldDirLight.intensity > .1)
+			if (fadingOut)
 			{
-//				Debug.Log("Light Intensity: " + oldDirLight.intensity);
-				oldDirLight.intensity = Mathf.Lerp(oldDirLight.intensity, 0f, 1f * Time.deltaTime);
-				
-				
-				if (oldDirLight.intensity < .1)
+
+				if (oldDirLight.intensity > .1)
 				{
-					oldDirLight.intensity = 0;
-					Destroy(oldRayCaster);
-					Instantiate(levelGroup);
-					fadingIn = true;
+//					Debug.Log("Light Intensity: " + oldDirLight.intensity);
+					oldDirLight.intensity = Mathf.Lerp(oldDirLight.intensity, 0f, 1f * Time.deltaTime);
+					
+
+					if (oldDirLight.intensity < .1)
+					{
+						oldDirLight.intensity = 0;
+						Destroy(oldRayCaster);
+						fadingOut = false;
+
+						if (levelId == 0)
+						{
+							Instantiate(Altar);
+						}
+						else if (levelId == 1)
+						{
+							Instantiate(levelGroup1);
+						}
+						else if (levelId == 2)
+						{
+							Instantiate(levelGroup2);
+							Debug.Log ("Instantiate level2");
+						}
+
+						fadingIn = true;
+					}
 				}
 			}
-			
 			if (fadingIn) 
 			{
-				newDirLight.intensity = Mathf.Lerp(newDirLight.intensity, 8f, .1f * Time.deltaTime);
+				newDirLight.intensity = Mathf.Lerp(newDirLight.intensity, 8f, 1f * Time.deltaTime);
 //				Debug.Log ("New light intensity: " + newDirLight.intensity);
 				if (newDirLight.intensity > 7.9)
 				{

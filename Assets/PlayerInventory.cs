@@ -3,12 +3,13 @@ using System.Collections;
 
 public class PlayerInventory : MonoBehaviour {
 	bool isCarryingIdol;
+	public int currentLevel;
 
 	// Use this for initialization
 	void Start () {
+		currentLevel = 0;
 		isCarryingIdol = false;
-	
-	}
+		}
 	
 	// Update is called once per frame
 	void Update () {

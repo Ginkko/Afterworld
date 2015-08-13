@@ -7,9 +7,10 @@ public class AltarInteract : MonoBehaviour {
 	PlayerInventory inventory;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		player = GameObject.FindGameObjectWithTag("Player");
 		inventory = player.GetComponent<PlayerInventory> ();
+		levelSpawn = GameObject.Find ("LevelSpawnMarker").GetComponent<LevelSpawn> ();
 	}
 	
 	// Update is called once per frame
@@ -23,8 +24,9 @@ public class AltarInteract : MonoBehaviour {
 		if (inventory.idolStatus())
 		{
 			inventory.idolCarryToggle();
-			
-			
+			inventory.currentLevel += 1;
+			Debug.Log ("Current Level (from altar): " + inventory.currentLevel);
+			levelSpawn.spawn(inventory.currentLevel);
 		}
 	}
 
