@@ -2,13 +2,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerHealth : MonoBehaviour
 {
+	public AudioClip hurtSfx;
+	public AudioClip deathSfx;
+	AudioSource audio;
+
     public int maxHealth = 100;                            // The amount of health the player starts the game with.
     public float currentHealth;                                   // The current health the player has.
     public Slider healthSlider;                                 // Reference to the UI's health bar.
     public Image damageImage;                                   // Reference to an image to flash on the screen on being hurt.
-    public AudioClip deathClip;                                 // The audio clip to play when the player dies.
     public float damageFlashSpeed;                               // The speed the damageImage will fade at.
 	public float deathFadeSpeed;
 	public float totalFadeLength;
@@ -26,6 +30,12 @@ public class PlayerHealth : MonoBehaviour
 	float timer;
 	string spawnPoint;
 	public bool respawning = true;
+
+	void Start ()
+	{
+		audio = GetComponent<AudioSource>();
+
+	}
 
     void Awake ()
     {
@@ -95,6 +105,7 @@ public class PlayerHealth : MonoBehaviour
 			        {
 			            // ... set the colour of the damageImage to the flash colour.
 			            damageImage.color = flashColor;
+						audio.PlayOneShot(hurtSfx, 1.0F);
 			        }
 			        // Otherwise...
 			        damaged = false;
@@ -142,6 +153,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Death ()
     {
+		audio.PlayOneShot(deathSfx, 1.0F);
         // Set the death flag so this function won't be called again.
 		timer = 0;
 		isDead = true;

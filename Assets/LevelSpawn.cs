@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class LevelSpawn : MonoBehaviour {
 	public GameObject Altar;
 	public GameObject levelGroup1;
 	public GameObject levelGroup2;
+	public AudioClip sunShiftSfx;
+	AudioSource audio;
 	int levelId;
 	bool fadingOut;
 	bool fadingIn;
@@ -12,6 +15,12 @@ public class LevelSpawn : MonoBehaviour {
 	GameObject oldRayCaster;
 	Light oldDirLight;
 	Light newDirLight;
+
+	void Start() 
+	{
+		audio = GetComponent<AudioSource>();
+	}
+
 	// Use this for initialization
 	void Awake () {
 
@@ -30,8 +39,8 @@ public class LevelSpawn : MonoBehaviour {
 			oldRayCaster = GameObject.Find (oldRayString);
 			oldDirLight = GameObject.Find (oldLightString).GetComponent<Light> ();
 			newDirLight = oldDirLight;
-			spawning = true;
-			fadingOut = true;
+
+
 		}
 
 		else
@@ -53,9 +62,11 @@ public class LevelSpawn : MonoBehaviour {
 //			Debug.Log (oldRayCaster.name);
 //			oldDirLight = GameObject.Find ("SunLevel{levelId - 1}").GetComponent<Light> ();
 
-			spawning = true;
-			fadingOut = true;
 		}
+
+		spawning = true;
+		fadingOut = true;
+		audio.PlayOneShot(sunShiftSfx, 1.0F);
 
 	}
 
@@ -66,11 +77,10 @@ public class LevelSpawn : MonoBehaviour {
 		{
 			if (fadingOut)
 			{
-
 				if (oldDirLight.intensity > .1)
 				{
 //					Debug.Log("Light Intensity: " + oldDirLight.intensity);
-					oldDirLight.intensity = Mathf.Lerp(oldDirLight.intensity, 0f, 1f * Time.deltaTime);
+					oldDirLight.intensity = Mathf.Lerp(oldDirLight.intensity, 0f, .5f * Time.deltaTime);
 					
 
 					if (oldDirLight.intensity < .1)
@@ -99,7 +109,7 @@ public class LevelSpawn : MonoBehaviour {
 			}
 			if (fadingIn) 
 			{
-				newDirLight.intensity = Mathf.Lerp(newDirLight.intensity, 8f, 1f * Time.deltaTime);
+				newDirLight.intensity = Mathf.Lerp(newDirLight.intensity, 8f, .5f * Time.deltaTime);
 //				Debug.Log ("New light intensity: " + newDirLight.intensity);
 				if (newDirLight.intensity > 7.9)
 				{
