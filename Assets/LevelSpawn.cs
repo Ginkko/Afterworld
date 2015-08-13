@@ -4,6 +4,7 @@ using System.Collections;
 public class LevelSpawn : MonoBehaviour {
 	public GameObject Altar;
 	public GameObject levelGroup1;
+	public GameObject levelGroup2;
 	int levelId;
 	bool fadingOut;
 	bool fadingIn;
@@ -77,6 +78,7 @@ public class LevelSpawn : MonoBehaviour {
 						oldDirLight.intensity = 0;
 						Destroy(oldRayCaster);
 						fadingOut = false;
+
 						if (levelId == 0)
 						{
 							Instantiate(Altar);
@@ -85,6 +87,12 @@ public class LevelSpawn : MonoBehaviour {
 						{
 							Instantiate(levelGroup1);
 						}
+						else if (levelId == 2)
+						{
+							Instantiate(levelGroup2);
+							Debug.Log ("Instantiate level2");
+						}
+
 						fadingIn = true;
 					}
 				}

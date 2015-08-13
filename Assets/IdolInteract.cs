@@ -7,7 +7,7 @@ public class IdolInteract : MonoBehaviour {
 	PlayerInventory inventory;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 
 		levelSpawn = GameObject.Find ("LevelSpawnMarker").GetComponent<LevelSpawn> ();
 		player = GameObject.FindGameObjectWithTag("Player");
@@ -22,7 +22,14 @@ public class IdolInteract : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 
 	{
-		levelSpawn.spawn(inventory.currentLevel);
+
+		if (inventory.currentLevel == 0)
+
+		{
+			Debug.Log ("Current Level (from idol): " + inventory.currentLevel);
+			levelSpawn.spawn(inventory.currentLevel);
+		}
+
 		Destroy (gameObject);
 		inventory.idolCarryToggle();
 	}

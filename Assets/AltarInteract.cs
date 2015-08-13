@@ -24,9 +24,8 @@ public class AltarInteract : MonoBehaviour {
 		if (inventory.idolStatus())
 		{
 			inventory.idolCarryToggle();
-			inventory.currentLevel ++;
-			Debug.Log ("Current Level: " + inventory.currentLevel);
-
+			inventory.currentLevel += 1;
+			Debug.Log ("Current Level (from altar): " + inventory.currentLevel);
 			levelSpawn.spawn(inventory.currentLevel);
 		}
 	}
