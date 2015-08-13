@@ -10,6 +10,7 @@ public class AltarInteract : MonoBehaviour {
 	void Awake () {
 		player = GameObject.FindGameObjectWithTag("Player");
 		inventory = player.GetComponent<PlayerInventory> ();
+		levelSpawn = GameObject.Find ("LevelSpawnMarker").GetComponent<LevelSpawn> ();
 	}
 	
 	// Update is called once per frame
@@ -23,8 +24,10 @@ public class AltarInteract : MonoBehaviour {
 		if (inventory.idolStatus())
 		{
 			inventory.idolCarryToggle();
-			
-			
+			inventory.currentLevel ++;
+			Debug.Log ("Current Level: " + inventory.currentLevel);
+
+			levelSpawn.spawn(inventory.currentLevel);
 		}
 	}
 

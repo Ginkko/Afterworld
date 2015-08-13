@@ -2,15 +2,14 @@
 using System.Collections;
 
 public class IdolInteract : MonoBehaviour {
-	GameObject level;
 	GameObject player;
 	LevelSpawn levelSpawn;
 	PlayerInventory inventory;
 
 	// Use this for initialization
 	void Start () {
-		level = GameObject.FindGameObjectWithTag ("Level1");
-		levelSpawn = level.GetComponent<LevelSpawn> ();
+
+		levelSpawn = GameObject.Find ("LevelSpawnMarker").GetComponent<LevelSpawn> ();
 		player = GameObject.FindGameObjectWithTag("Player");
 		inventory = player.GetComponent<PlayerInventory> ();
 	}
@@ -23,7 +22,7 @@ public class IdolInteract : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 
 	{
-		levelSpawn.spawn(0);
+		levelSpawn.spawn(inventory.currentLevel);
 		Destroy (gameObject);
 		inventory.idolCarryToggle();
 	}

@@ -5,7 +5,7 @@ public class LevelSpawn : MonoBehaviour {
 	public GameObject Altar;
 	public GameObject levelGroup1;
 	int levelId;
-	bool fadingOut = true;
+	bool fadingOut;
 	bool fadingIn;
 	bool spawning;
 	GameObject oldRayCaster;
@@ -16,8 +16,10 @@ public class LevelSpawn : MonoBehaviour {
 
 	}
 
-	public void spawn (int levelId)
+	public void spawn (int level)
 	{
+		levelId = level;
+		Debug.Log ("Spawning level" + levelId);
 		if (levelId == 0)
 		{
 
@@ -28,17 +30,32 @@ public class LevelSpawn : MonoBehaviour {
 			oldDirLight = GameObject.Find (oldLightString).GetComponent<Light> ();
 			newDirLight = oldDirLight;
 			spawning = true;
-			Debug.Log ("Spawning level" + levelId);
+			fadingOut = true;
 		}
+
 		else
 		
 		{
-			oldRayCaster = GameObject.Find ("raycaster{levelId - 1}");
-			oldDirLight = GameObject.Find ("SunLevel{levelId - 1}").GetComponent<Light> ();
-			newDirLight = GameObject.Find ("SunLevel{levelId}").GetComponent<Light> ();
+			var oldRayString = string.Format("raycaster{0}", levelId - 1);
+			var oldLightString = string.Format("SunLevel{0}", levelId - 1);
+			var newLightString = string.Format ("SunLevel{0}", levelId);
+
+			oldRayCaster = GameObject.Find (oldRayString);
+			oldDirLight = GameObject.Find (oldLightString).GetComponent<Light> ();
+			newDirLight = GameObject.Find (newLightString).GetComponent<Light> ();
+
+			Debug.Log ("Old Raycaster: " + oldRayCaster.name);
+			Debug.Log ("Old DirLight: " + oldDirLight.name);
+			Debug.Log ("Old newDirLight: " + newDirLight.name);
+
+//			oldRayCaster = GameObject.Find ("raycaster{levelId - 1}");
+//			Debug.Log (oldRayCaster.name);
+//			oldDirLight = GameObject.Find ("SunLevel{levelId - 1}").GetComponent<Light> ();
+
 			spawning = true;
-			Debug.Log ("Spawning level" + levelId);
+			fadingOut = true;
 		}
+
 	}
 
 	// Update is called once per frame
@@ -51,10 +68,10 @@ public class LevelSpawn : MonoBehaviour {
 
 				if (oldDirLight.intensity > .1)
 				{
-					Debug.Log("Light Intensity: " + oldDirLight.intensity);
+//					Debug.Log("Light Intensity: " + oldDirLight.intensity);
 					oldDirLight.intensity = Mathf.Lerp(oldDirLight.intensity, 0f, 1f * Time.deltaTime);
 					
-					
+
 					if (oldDirLight.intensity < .1)
 					{
 						oldDirLight.intensity = 0;
@@ -75,7 +92,7 @@ public class LevelSpawn : MonoBehaviour {
 			if (fadingIn) 
 			{
 				newDirLight.intensity = Mathf.Lerp(newDirLight.intensity, 8f, 1f * Time.deltaTime);
-				Debug.Log ("New light intensity: " + newDirLight.intensity);
+//				Debug.Log ("New light intensity: " + newDirLight.intensity);
 				if (newDirLight.intensity > 7.9)
 				{
 					newDirLight.intensity = 8;
