@@ -15,9 +15,9 @@ public class MusicController : MonoBehaviour {
 	void Update () {
 		float lightVol = (playerHealth.currentHealth / playerHealth.maxHealth) * 80 - 80;
 		float darkVol = (80 + lightVol * 2) * -1;
-		if (lightVol > 0)
+		if (lightVol > -3)
 		{
-			lightVol = 0;
+			lightVol = -3;
 		}
 		if (darkVol > 0)
 		{
