@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityStandardAssets.Characters.FirstPerson;
 
 [RequireComponent(typeof(AudioSource))]
 public class PlayerHealth : MonoBehaviour
@@ -20,10 +21,12 @@ public class PlayerHealth : MonoBehaviour
 	public Color deathColor;
 	public Color victoryColor;
 	public float timeBetweenDamageFeedback = 2f;
-
-    Animator anim;                                              // Reference to the Animator component.
+    
+	FirstPersonController firstPersonController;
+	Animator anim;                                              // Reference to the Animator component.
     AudioSource playerAudio;                                    // Reference to the AudioSource component.
 	SpawnController spawnController;
+
 //    PlayerMovement playerMovement;                              // Reference to the player's movement.
 //    PlayerShooting playerShooting;                              // Reference to the PlayerShooting script.
 	public bool isDead = false;                                                // Whether the player is dead.
@@ -45,6 +48,7 @@ public class PlayerHealth : MonoBehaviour
         anim = GetComponent <Animator> ();
         playerAudio = GetComponent <AudioSource> ();
 		spawnController = GetComponent <SpawnController> ();
+		firstPersonController = GameObject.FindGameObjectWithTag ("GameController").GetComponent<FirstPersonController>();
 //        playerMovement = GetComponent <PlayerMovement> ();
 //        playerShooting = GetComponentInChildren <PlayerShooting> ();
 
@@ -174,6 +178,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Death ()
     {
+		firstPersonController.enabled = false;
 		audio.PlayOneShot(deathSfx, 1.0F);
         // Set the death flag so this function won't be called again.
 		timer = 0;
