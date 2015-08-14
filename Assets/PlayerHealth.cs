@@ -57,6 +57,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
 		spawnPoint = "PlayerSpawn0";
 		spawnController.spawn(spawnPoint);
+		firstPersonController.enabled = true;
 	}
 
 
@@ -66,6 +67,7 @@ public class PlayerHealth : MonoBehaviour
 
 		if (isVictorious)
 		{
+			firstPersonController.enabled = false;
 			Debug.Log ("V I C T O R Y");
 			Color damageImageSnapshot = damageImage.color;
 			damageImage.color = Color.Lerp (damageImageSnapshot, victoryColor, timer / totalFadeLength );
@@ -80,12 +82,12 @@ public class PlayerHealth : MonoBehaviour
 
 		else if (respawning)
 		{
+			firstPersonController.enabled = true;
 			damageImage.color = Color.Lerp (Color.black, Color.clear,  timer / totalFadeLength );
 //			Debug.Log(damageImage.color);
 			if (timer > totalFadeLength)
 			{
 				Debug.Log ("Respawning finished");
-
 				respawning = false;
 				timer = 0;
 			}
