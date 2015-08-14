@@ -52,7 +52,6 @@ public class PlayerHealth : MonoBehaviour
 //        playerMovement = GetComponent <PlayerMovement> ();
 //        playerShooting = GetComponentInChildren <PlayerShooting> ();
 
-		victoryAlert.enabled = false;
 		damageImage.color = Color.black;
         currentHealth = maxHealth;
 		spawnPoint = "PlayerSpawn0";
@@ -75,6 +74,7 @@ public class PlayerHealth : MonoBehaviour
 			{
 				damageImage.color = victoryColor;
 				Debug.Log (" WINNING COMPLETED ");
+				victoryAlert.CrossFadeAlpha(255, 3, true);
 			}
 
 		}
@@ -174,7 +174,7 @@ public class PlayerHealth : MonoBehaviour
 
 	public void Victory ()
 	{
-		victoryAlert.enabled = true;
+
 		isVictorious = true;
 	}
 
