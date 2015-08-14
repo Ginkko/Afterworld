@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
 	public Color deathColor;
 	public Color victoryColor;
 	public float timeBetweenDamageFeedback = 2f;
-    
+	public Image victoryAlert;
 	FirstPersonController firstPersonController;
 	Animator anim;                                              // Reference to the Animator component.
     AudioSource playerAudio;                                    // Reference to the AudioSource component.
@@ -52,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
 //        playerMovement = GetComponent <PlayerMovement> ();
 //        playerShooting = GetComponentInChildren <PlayerShooting> ();
 
-        // Set the initial health of the player.
+		victoryAlert.enabled = false;
 		damageImage.color = Color.black;
         currentHealth = maxHealth;
 		spawnPoint = "PlayerSpawn0";
@@ -174,6 +174,7 @@ public class PlayerHealth : MonoBehaviour
 
 	public void Victory ()
 	{
+		victoryAlert.enabled = true;
 		isVictorious = true;
 	}
 
