@@ -65,8 +65,6 @@ public class LightDetector : MonoBehaviour {
 			playerHealth.TakeDamage(Time.deltaTime * damageSpeed);
 
 		}
-
-
 	}
 
 	public bool V3Equal(Vector3 a, Vector3 b){

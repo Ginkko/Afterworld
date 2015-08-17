@@ -143,13 +143,21 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage (float amount)
     {
         // Set the damaged flag so the screen will flash.
-        if (amount > 0)
-		{
+
+        if (amount > 0) {
 			damaged = true;
+		} else if (amount < 0) {
+			damaged = false;
 		}
+
+		Debug.Log ("Amount: " + amount);
+		Debug.Log ("Damaged: " + damaged);
+
+
+
+
         // Reduce the current health by the damage amount.
         currentHealth -= amount;
-	
 
         // Set the health bar's value to the current health.
         healthSlider.value = currentHealth;
@@ -174,7 +182,6 @@ public class PlayerHealth : MonoBehaviour
 
 	public void Victory ()
 	{
-
 		isVictorious = true;
 	}
 
