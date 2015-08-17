@@ -150,11 +150,8 @@ public class PlayerHealth : MonoBehaviour
 			damaged = false;
 		}
 
-		Debug.Log ("Amount: " + amount);
-		Debug.Log ("Damaged: " + damaged);
-
-
-
+//		Debug.Log ("Amount: " + amount);
+//		Debug.Log ("Damaged: " + damaged);
 
         // Reduce the current health by the damage amount.
         currentHealth -= amount;

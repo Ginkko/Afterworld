@@ -62,9 +62,9 @@ public class LevelSpawn : MonoBehaviour {
 			oldDirLight = GameObject.Find (oldLightString).GetComponent<Light> ();
 			newDirLight = GameObject.Find (newLightString).GetComponent<Light> ();
 
-			Debug.Log ("Old Raycaster: " + oldRayCaster.name);
-			Debug.Log ("Old DirLight: " + oldDirLight.name);
-			Debug.Log ("Old newDirLight: " + newDirLight.name);
+//			Debug.Log ("Old Raycaster: " + oldRayCaster.name);
+//			Debug.Log ("Old DirLight: " + oldDirLight.name);
+//			Debug.Log ("Old newDirLight: " + newDirLight.name);
 
 //			oldRayCaster = GameObject.Find ("raycaster{levelId - 1}");
 //			Debug.Log (oldRayCaster.name);
