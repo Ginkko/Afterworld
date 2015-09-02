@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
 	public Color victoryColor;
 	public float timeBetweenDamageFeedback = 2f;
 	public Image victoryAlert;
+	public Image instructions;
 	FirstPersonController firstPersonController;
 	Animator anim;                                              // Reference to the Animator component.
     AudioSource playerAudio;                                    // Reference to the AudioSource component.
@@ -62,6 +63,12 @@ public class PlayerHealth : MonoBehaviour
 
     void Update ()
     {
+
+		if(Input.GetButtonDown("Cancel"))
+		{
+			Application.Quit();
+		}
+
 		timer += Time.deltaTime;
 
 		if (isVictorious)
@@ -74,7 +81,10 @@ public class PlayerHealth : MonoBehaviour
 			{
 				damageImage.color = victoryColor;
 				Debug.Log (" WINNING COMPLETED ");
-				victoryAlert.CrossFadeAlpha(255, 3, true);
+				Color a = Color.white;
+				a.a = 255;
+				victoryAlert.color = a;
+
 			}
 
 		}
@@ -90,6 +100,7 @@ public class PlayerHealth : MonoBehaviour
 				Debug.Log ("Respawning finished");
 				respawning = false;
 				timer = 0;
+				instructions.color = Color.clear;
 			}
 			
 		}
@@ -180,6 +191,7 @@ public class PlayerHealth : MonoBehaviour
 	public void Victory ()
 	{
 		isVictorious = true;
+		timer = 0;
 	}
 
 
