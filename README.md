@@ -18,10 +18,10 @@ Currently supports Keyboard/mouse or Standard Gamepad controls.
 
 #Oculus Rift Instructions
 - Clone repo
-- Build in Unity 5.1.1p3
+- Build in Unity (Tested with 5.1.1p3 and 5.2.2f)
 - Set Oculus to Direct HMD Access Mode
 - Run EXE
-Controller strongly recommended when playing in VR.
+- Controller strongly recommended when playing in VR.
 
 
 #Screen Shots
