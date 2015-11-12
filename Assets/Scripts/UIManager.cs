@@ -11,4 +11,16 @@ public class UIManager : MonoBehaviour {
 		Application.Quit ();
 	}
 	
+	void update () {
+		if (Input.GetKeyDown("joystick button 0")) {
+			Application.LoadLevel("game");
+		}
+		else if (Input.GetKeyDown("joystick button 1")) {
+			Application.Quit ();
+		}
+
+	}
+
+
 }
+
