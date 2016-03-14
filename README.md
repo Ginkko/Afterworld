@@ -2,7 +2,7 @@
 
 Casualware
 
-Toby Alden and Alec Arme, 2015
+Toby Alden and Alec Arme, 2016
 
 BETA 0.2
 
